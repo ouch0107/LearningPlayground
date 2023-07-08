@@ -1,8 +1,12 @@
+using LearningPlayground.Models.RandomModel;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+// Dependency Injection for random model per request
+builder.Services.AddScoped<IRandomModel, LotteryModel>();
 
 var app = builder.Build();
 
