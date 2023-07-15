@@ -1,12 +1,21 @@
+using LearningPlayground.Context;
 using LearningPlayground.Models.RandomModel;
+using LearningPlayground.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Add Dapper context
+builder.Services.AddSingleton<DapperContext>();
+
 builder.Services.AddControllersWithViews();
 // Dependency Injection for random model per request
 builder.Services.AddScoped<IRandomModel, LotteryModel>();
+
+#region Repositories
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+#endregion
 
 var app = builder.Build();
 
