@@ -49,5 +49,19 @@ namespace LearningPlayground.Controllers
             var products = await _productRepository.GetProducts();
             return Ok(products);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(string id)
+        {
+            var product = await _productRepository.GetProduct(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(product);
+            }
+        }
     }
 }
