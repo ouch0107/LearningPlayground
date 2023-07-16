@@ -63,8 +63,27 @@
         <div class="col-12 xl:col-6">
             <div class="card">
                 <h5>Recent Sales</h5>
-                <p-table [value]="products" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+                <p-table [value]="customeProduct" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+                    <!-- 測試API用 -->
                     <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="name">ProductNumber <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                            <th>View</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customeProduct>
+                        <tr>
+                            <td style="width: 35%; min-width: 7rem;">{{customeProduct.name}}</td>
+                            <td style="width: 35%; min-width: 7rem;">{{customeProduct.productNumber}}</td>
+                            <td style="width: 35%; min-width: 8rem;">{{customeProduct.listPrice | currency:'USD'}}</td>
+                            <td style="width: 15%;">
+                                <button pButton pRipple type="button" icon="pi pi-search" class="p-button p-component p-button-text p-button-icon-only"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <!-- <ng-template pTemplate="header">
                         <tr>
                             <th>Image</th>
                             <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
@@ -83,7 +102,7 @@
                                 <button pButton pRipple type="button" icon="pi pi-search" class="p-button p-component p-button-text p-button-icon-only"></button>
                             </td>
                         </tr>
-                    </ng-template>
+                    </ng-template> -->
                 </p-table>
             </div>
             <div class="card">

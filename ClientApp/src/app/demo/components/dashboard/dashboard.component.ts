@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Product } from '../../api/product';
+import { Product, CustomProduct } from '../../api/product';
 import { ProductService } from '../../service/product.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     items!: MenuItem[];
 
     products!: Product[];
+    customeProduct!: CustomProduct[];
 
     chartData: any;
 
@@ -29,6 +30,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.initChart();
         this.productService.getProductsSmall().then(data => this.products = data);
+        // 測試API用
+        this.productService.getProductsFromAPI().then(data => this.customeProduct = data);
 
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },

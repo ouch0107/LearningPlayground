@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '../api/product';
+import { CustomProduct, Product } from '../api/product';
 
 @Injectable()
 export class ProductService {
@@ -11,6 +11,14 @@ export class ProductService {
         return this.http.get<any>('assets/demo/data/products-small.json')
             .toPromise()
             .then(res => res.data as Product[])
+            .then(data => data);
+    }
+
+    // 測試API用
+    getProductsFromAPI() {
+        return this.http.get<any>('https://localhost:7189/api/WeatherForecast/GetProducts')
+            .toPromise()
+            .then(res => res as CustomProduct[])
             .then(data => data);
     }
 
