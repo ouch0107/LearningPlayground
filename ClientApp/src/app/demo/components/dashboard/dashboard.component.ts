@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.initChart();
         this.productService.getProductsSmall().then(data => this.products = data);
         // 測試API用
-        this.productService.getProductsFromAPI().then(data => this.customeProduct = data);
+        this.productService.getProductsFromAPI().subscribe(data => this.customeProduct = data);
 
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },

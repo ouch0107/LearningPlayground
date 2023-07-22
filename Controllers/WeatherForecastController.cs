@@ -47,8 +47,6 @@ namespace LearningPlayground.Controllers
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productRepository.GetProducts();
-            // 測試API用
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return Ok(products);
         }
 
@@ -62,8 +60,6 @@ namespace LearningPlayground.Controllers
             }
             else
             {
-                // 測試API用
-                Response.Headers.Add("Access-Control-Allow-Origin", "*");
                 return Ok(product);
             }
         }

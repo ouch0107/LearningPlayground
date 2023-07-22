@@ -1,11 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CustomProduct, Product } from '../api/product';
+import { HttpService } from 'src/app/services/api/http.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProductService {
+    url: string = '/api/WeatherForecast';
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private httpService: HttpService
+        ) { }
 
     getProductsSmall() {
         return this.http.get<any>('assets/demo/data/products-small.json')
@@ -15,11 +21,8 @@ export class ProductService {
     }
 
     // 測試API用
-    getProductsFromAPI() {
-        return this.http.get<any>('https://localhost:7189/api/WeatherForecast/GetProducts')
-            .toPromise()
-            .then(res => res as CustomProduct[])
-            .then(data => data);
+    getProductsFromAPI(): Observable<CustomProduct[]> {
+        return this.httpService.get<CustomProduct[]>(`${this.url}/GetProducts`);
     }
 
     getProducts() {
