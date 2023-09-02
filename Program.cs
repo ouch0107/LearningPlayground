@@ -4,14 +4,16 @@ using LearningPlayground.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-// Add Dapper context
+// Dapper context
 builder.Services.AddSingleton<DapperContext>();
 
 builder.Services.AddControllersWithViews();
-// Dependency Injection for random model per request
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+# region Models
 builder.Services.AddScoped<IRandomModel, LotteryModel>();
+#endregion
 
 #region Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -25,11 +27,16 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+else
+{
+    // Use swagger in development mode
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 
 app.MapControllerRoute(
     name: "default",
