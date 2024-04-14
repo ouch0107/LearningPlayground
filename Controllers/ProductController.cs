@@ -26,10 +26,7 @@ namespace LearningPlayground.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _productRepository.GetProducts();
-            Console.WriteLine(_configuration.GetValue<string>("Env"));
-            Console.WriteLine(_configuration.GetValue<string>("MainSetting:SubSetting"));
-            Console.WriteLine(_configuration.GetValue<int>("NumberOfVocabulary"));
+            var products = await _productRepository.GetFirst100Product();
             return Ok(products);
         }
 
