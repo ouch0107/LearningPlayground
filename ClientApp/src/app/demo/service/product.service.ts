@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-    url: string = '/api/WeatherForecast';
+    url: string = '/api/Product';
 
     constructor(
         private http: HttpClient,

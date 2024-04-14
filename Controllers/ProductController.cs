@@ -1,4 +1,5 @@
 ﻿using LearningPlayground.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningPlayground.Controllers
@@ -9,24 +10,31 @@ namespace LearningPlayground.Controllers
     {
         private readonly ILogger<ProductController> _logger;
         private readonly IProductRepository _productRepository;
+        private readonly IConfiguration _configuration;
 
         public ProductController(
             ILogger<ProductController> logger,
-            IProductRepository productRepository
+            IProductRepository productRepository,
+            IConfiguration configuration
             )
         {
             _logger = logger;
             _productRepository = productRepository;
+            _configuration = configuration;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productRepository.GetProducts();
+            Console.WriteLine(_configuration.GetValue<string>("Env"));
+            Console.WriteLine(_configuration.GetValue<string>("MainSetting:SubSetting"));
+            Console.WriteLine(_configuration.GetValue<int>("NumberOfVocabulary"));
             return Ok(products);
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetProduct(string id)
         {
             var product = await _productRepository.GetProduct(id);
